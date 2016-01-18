@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">studentlist_v2</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_acitvity">Acitvity</string>
+
+    <drawable name="clr_normal">#00000000</drawable>
+    <drawable name="clr_pressed">#99CCFF</drawable>
+
+    <string name="title_activity_week">WeekActivity</string>
+
+</resources>

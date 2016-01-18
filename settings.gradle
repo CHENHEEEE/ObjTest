@@ -1,0 +1,2 @@
+include ':app', ':tabletest', ':batteryinfomanager'
+include ':studentlist_v2'

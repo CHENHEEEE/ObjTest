@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:orientation="horizontal"
+    android:background="#A6A6A6" >
+
+    <LinearLayout
+        android:id="@+id/id_tab_update"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center" >
+        
+        <ImageButton 
+            android:id="@+id/id_tab_update_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/update_pressed"
+            android:background="#00000000"
+            android:clickable="false"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="更新日程"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/id_tab_cld"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center" >
+        
+        <ImageButton 
+            android:id="@+id/id_tab_cld_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calendar"
+            android:background="#00000000"
+            android:clickable="false"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="日程表"/>
+    </LinearLayout>
+
+</LinearLayout>

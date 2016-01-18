@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
+    }
+]

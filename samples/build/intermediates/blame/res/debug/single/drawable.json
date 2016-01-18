@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\item_table1.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\item_table1.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\separator_table_header_first.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\separator_table_header_first.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_left.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\exploded-aar\\ObjTest\\library\\unspecified\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_table_color1.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\bg_table_color1.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\item_table1_header.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\item_table1_header.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_top.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\exploded-aar\\ObjTest\\library\\unspecified\\res\\drawable\\shadow_top.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\separator_table_header.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\separator_table_header.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_right.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\exploded-aar\\ObjTest\\library\\unspecified\\res\\drawable\\shadow_right.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\separator_table_first.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\separator_table_first.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_table_header.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\bg_table_header.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_table_color2.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\bg_table_color2.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_bottom.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\exploded-aar\\ObjTest\\library\\unspecified\\res\\drawable\\shadow_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\separator_table.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\separator_table.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\samples\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_table_family.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\samples\\src\\main\\res\\drawable\\bg_table_family.xml"
+    }
+]
