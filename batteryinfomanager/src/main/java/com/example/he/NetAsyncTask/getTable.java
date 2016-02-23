@@ -1,21 +1,20 @@
 package com.example.he.NetAsyncTask;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.he.batteryinfomanager.R;
+import com.example.he.batteryinfoActivity.R;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -24,7 +23,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,29 +30,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by HE on 2015/12/29.
+ * Created by HE on 2016/1/25.
+ * 这是一个联网获得二级表（电池信息）的线程
  */
-public class getTable extends AsyncTask<Object, Object, String>{
+public class getTableTwo extends AsyncTask<Object, Object, String>{
     // WSDL文档中的命名空间
     private static final String targetNameSpace = "http://tempuri.org/";
     // WSDL文档中的URL
     private static final String WSDL = "http://192.168.1.111:1666/Datebase.asmx";
 
     // 需要调用的方法名
-    private static final String methodname = "getTableObjAL";
+    private static final String methodname = "getTableTwo";
     private List<Map<String,String>> tlistItems = new ArrayList<Map<String,String>>();
     private List<Map<String,String>> listItems = new ArrayList<Map<String,String>>();
     private ListView mtitlelistview,mListView;
     private Context mcontext;
-    private String mTid,mTablename;
+    private String mExpid,mid;
+    private Handler mhandler;
+    private int x,y;
     ProgressDialog pd;
 
-    public getTable(Context context,String tid,String tablename,ListView titleListview,ListView listView){
+    public getTableTwo(Context context, String Expid, String id, ListView titleListview, ListView listView,Handler handler){
         mcontext = context;
-        mTid = tid;
-        mTablename = tablename;
+        mExpid = Expid;
+        mid = id;
         mtitlelistview = titleListview;
         mListView = listView;
+        mhandler = handler;
     }
 
     @Override
@@ -76,16 +78,16 @@ public class getTable extends AsyncTask<Object, Object, String>{
             //耗时计算
             Date dt1= new Date();
             Long t1= dt1.getTime();
-//            vhAdapter tsimpleAdapter = new vhAdapter(mcontext, tlistItems, R.layout.table_item,
-//                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
-//                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
-//            mtitlelistview.setAdapter(tsimpleAdapter);
+            SimpleAdapter tsimpleAdapter = new SimpleAdapter(mcontext, tlistItems, R.layout.tabletitle_item,
+                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
+                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
+            mtitlelistview.setAdapter(tsimpleAdapter);
 //            vhAdapter msimpleAdapter = new vhAdapter(mcontext, listItems, R.layout.table_item,
 //                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
 //                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
 //            mListView.setAdapter(msimpleAdapter);
-            vhAdapter tsimpleAdapter = new vhAdapter(mcontext,tlistItems);
-            mtitlelistview.setAdapter(tsimpleAdapter);
+//            vhAdapter tsimpleAdapter = new vhAdapter(mcontext,tlistItems);
+//            mtitlelistview.setAdapter(tsimpleAdapter);
             vhAdapter msimpleAdapter = new vhAdapter(mcontext,listItems);
             mListView.setAdapter(msimpleAdapter);
 
@@ -104,7 +106,8 @@ public class getTable extends AsyncTask<Object, Object, String>{
         // 根据命名空间和方法得到SoapObject对象
         SoapObject soapObject = new SoapObject(targetNameSpace,
                 methodname);
-        soapObject.addProperty("tablename",mTablename+"_"+mTid);
+        soapObject.addProperty("expid",mExpid);
+        soapObject.addProperty("id",mid);
         // 通过SOAP1.1协议得到envelop对象
         SoapSerializationEnvelope envelop = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
@@ -127,7 +130,10 @@ public class getTable extends AsyncTask<Object, Object, String>{
             // 得到服务器传回的数据
             int num = Integer.parseInt(resultObj.getProperty(0).toString());
             int count = Integer.parseInt(resultObj.getProperty(1).toString());
-            int cursor = 1;
+            x = Integer.parseInt(resultObj.getProperty(2).toString());
+            y = Integer.parseInt(resultObj.getProperty(3).toString());
+
+            int cursor = 3;
             Map<String,String> tlistItem = new HashMap<String, String>();
             for (int i=0; i < count; i++) {
                 cursor++;
@@ -155,10 +161,20 @@ public class getTable extends AsyncTask<Object, Object, String>{
         long t2 = dt2.getTime();
         Log.d("time-getresultObj",String.valueOf(t2-t1));
 
+        //用handler向主线程传数据
+        Message message = Message.obtain();
+        message.what = 999;
+        message.obj = listItems;
+        message.arg1 = x;
+        message.arg2 = y;
+        mhandler.sendMessage(message);
+//        Handler handler = new Handler(Looper.getMainLooper());
+//        handler.sendMessage(message);
 
         return "success";
     }
 
+    //重写baseAdapter，提高listview载入速度
     private class vhAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
         private List<Map<String,String>> mlistItems = new ArrayList<Map<String,String>>();
@@ -226,7 +242,7 @@ public class getTable extends AsyncTask<Object, Object, String>{
             holder.t12.setText(mlistItems.get(position).get("12"));
             holder.t13.setText(mlistItems.get(position).get("13"));
             holder.t14.setText(mlistItems.get(position).get("14"));
-        return convertView;
+            return convertView;
         }
     }
 
@@ -248,3 +264,4 @@ public class getTable extends AsyncTask<Object, Object, String>{
         public TextView t14;
     }
 }
+

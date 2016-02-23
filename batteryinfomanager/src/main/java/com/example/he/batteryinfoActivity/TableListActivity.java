@@ -1,4 +1,4 @@
-package com.example.he.batteryinfomanager;
+package com.example.he.batteryinfoActivity;
 
 import android.app.Activity;
 import android.content.Intent;

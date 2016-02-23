@@ -8,12 +8,12 @@
         "source": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_simple_decor.xml"
     },
     {
-        "merged": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_include.xml",
-        "source": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_activity_chooser_view_include.xml"
-    },
-    {
         "merged": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\res\\merged\\debug\\layout\\name_item.xml",
         "source": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\src\\main\\res\\layout\\name_item.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_include.xml",
+        "source": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\layout\\abc_activity_chooser_view_include.xml"
     },
     {
         "merged": "F:\\AndroidStudioWorks\\ObjTest\\studentlist_v2\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
