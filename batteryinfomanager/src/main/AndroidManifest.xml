@@ -17,7 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.he.batteryinfoActivity.TableListActivity" />
         <activity android:name="com.example.he.batteryinfoActivity.TableOneActivity" />
         <activity android:name="com.example.he.batteryinfoActivity.TableTwoActivity" />
         <activity android:name="com.example.he.batteryinfoActivity.LineChartActivity"></activity>
