@@ -50,7 +50,7 @@ public class getTableTwo extends AsyncTask<Object, Object, String>{
     private int x,y;
     ProgressDialog pd;
 
-    public getTableTwo(Context context, String Expid, String id, ListView titleListview, ListView listView,Handler handler){
+    public getTableTwo(Context context, String Expid, String id, ListView titleListview, ListView listView, Handler handler){
         mcontext = context;
         mExpid = Expid;
         mid = id;
