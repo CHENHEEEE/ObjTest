@@ -37,7 +37,7 @@ public class LineChartActivity extends AppCompatActivity {
             setLineChart(mlinechart1);
             loadLineChartData(mlinechart1);
         }else {
-            Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"数据不完整",Toast.LENGTH_SHORT).show();
         }
     }
     /**

@@ -1,19 +1,18 @@
 package com.example.he.NetAsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.he.batteryinfoActivity.R;
+import com.example.he.ListviewAdapter.vhAdapter;
+import com.example.he.ListviewAdapter.vhAdapterwithListener;
+import com.example.he.database.MySQLiteOpenHelper;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -37,7 +36,6 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
     private static final String targetNameSpace = "http://tempuri.org/";
     // WSDL文档中的URL
     private static final String WSDL = "http://192.168.1.111:1666/Datebase.asmx";
-
     // 需要调用的方法名
     private static final String methodname = "getTableOne";
     private List<Map<String,String>> tlistItems = new ArrayList<Map<String,String>>();
@@ -45,7 +43,9 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
     private ListView mtitlelistview,mListView;
     private Context mcontext;
     private String mExpid;
-    ProgressDialog pd;
+    private ProgressDialog pd;
+    private MySQLiteOpenHelper helper;
+    private SQLiteDatabase database;
 
     public getTableOne(Context context,String Expid,ListView titleListview, ListView listView){
         mcontext = context;
@@ -53,6 +53,7 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
         mtitlelistview = titleListview;
         mListView = listView;
     }
+
 
     @Override
     protected void onPreExecute() {
@@ -66,23 +67,24 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
 
     @Override
     protected void onPostExecute(String result) {
+
+        //耗时计算
+        Date dt1= new Date();
+        Long t1= dt1.getTime();
+
         pd.dismiss();
         if (result.equals("success")) {
             //列表适配器
-
-            //耗时计算
-            Date dt1= new Date();
-            Long t1= dt1.getTime();
-            SimpleAdapter tsimpleAdapter = new SimpleAdapter(mcontext, tlistItems, R.layout.tabletitle_item,
-                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
-                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
-            mtitlelistview.setAdapter(tsimpleAdapter);
+//            SimpleAdapter tsimpleAdapter = new SimpleAdapter(mcontext, tlistItems, R.layout.tabletitle_item,
+//                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
+//                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
+//            mtitlelistview.setAdapter(tsimpleAdapter);
 //            vhAdapter msimpleAdapter = new vhAdapter(mcontext, listItems, R.layout.table_item,
 //                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
 //                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
 //            mListView.setAdapter(msimpleAdapter);
-//            vhAdapter tsimpleAdapter = new vhAdapter(mcontext,tlistItems);
-//            mtitlelistview.setAdapter(tsimpleAdapter);
+            vhAdapterwithListener tsimpleAdapter = new vhAdapterwithListener(mcontext,tlistItems);
+            mtitlelistview.setAdapter(tsimpleAdapter);
             vhAdapter msimpleAdapter = new vhAdapter(mcontext,listItems);
             mListView.setAdapter(msimpleAdapter);
 
@@ -90,6 +92,16 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
             long t2 = dt2.getTime();
             Log.d("time-adapter",String.valueOf(t2-t1));
 
+//            Cursor cursor = database.rawQuery("select distinct DoD from one",null);
+//            cursor.moveToFirst();
+//            String [] dod = new String[15];
+//            int i=0;
+//            while (!cursor.isAfterLast()){
+//                dod[i] = cursor.getString(0);
+//                Log.d("HeD_database",dod[i]);
+//                i++;
+//                cursor.moveToNext();
+//            }
         }else {
             Toast.makeText(mcontext, "载入失败", Toast.LENGTH_SHORT).show();
         }
@@ -106,7 +118,6 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
         SoapSerializationEnvelope envelop = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         // 将soapObject对象设置为envelop对象，传出消息
-
         envelop.dotNet = true;
         envelop.setOutputSoapObject(soapObject);
         // 或者envelop.bodyOut = soapObject;
@@ -126,20 +137,56 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
             int count = Integer.parseInt(resultObj.getProperty(1).toString());
             int cursor = 1;
             Map<String,String> tlistItem = new HashMap<String, String>();
+
+            //数据库操作，新建库,新建表
+            helper = new MySQLiteOpenHelper(mcontext,"battery_one.db",null,1);
+            database = helper.getWritableDatabase();//调用方法，创建或打开链接
+            //database.execSQL("create table one(mid INTEGER PRIMARY KEY autoincrement);");
+            database.execSQL("DROP TABLE IF EXISTS one");
+            database.execSQL("CREATE TABLE one (b_id INTEGER PRIMARY KEY AUTOINCREMENT);");
+            ContentValues cv = new ContentValues();
+
+            //从resultObj中获取列名
             for (int i=0; i < count; i++) {
                 cursor++;
                 tlistItem.put(String.valueOf(i), resultObj.getProperty(cursor).toString());
+
+                //数据库操作，添加列
+                String sql = "alter table one add column "+ resultObj.getProperty(cursor).toString()+" text;";
+                database.execSQL(sql);
             }
             tlistItems.add(tlistItem);
+
+            //从resultObj中获取字段值
             num = num/count;
-            for (int j=0;j<num;j++){
-                Map<String,String> listItem = new HashMap<String, String>();
+            for (int j = 0; j < num; j++) {
+                Map<String, String> listItem = new HashMap<String, String>();
+//                cv.clear();
                 for (int i= 0;i<count;i++){
                     cursor++;
                     listItem.put(String.valueOf(i), resultObj.getProperty(cursor).toString());
+//                    String key = tlistItem.get(String.valueOf(i));
+//                    cv.put(key,resultObj.getProperty(cursor).toString());
                 }
                 listItems.add(listItem);
+//                database.insert("one",null,cv);
             }
+
+            //将表格数据存到数据库中，通过事务优化存储速度
+            database.beginTransaction();
+            for (int j = 0; j < num; j++) {
+                Map<String, String> listItem = new HashMap<String, String>();
+                listItem = listItems.get(j);
+                cv.clear();
+                for (int i= 0;i<count;i++){
+                    String key = tlistItem.get(String.valueOf(i));
+                    cv.put(key,listItem.get(String.valueOf(i)));
+                }
+                database.insert("one", null, cv);
+            }
+            database.setTransactionSuccessful();
+            database.endTransaction();
+
         } catch (IOException e) {
             e.printStackTrace();
             return "IOException";
@@ -152,97 +199,6 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
         long t2 = dt2.getTime();
         Log.d("time-getresultObj",String.valueOf(t2-t1));
 
-
         return "success";
-    }
-
-    //重写baseAdapter，提高listview载入速度
-    private class vhAdapter extends BaseAdapter {
-        private LayoutInflater mInflater;
-        private List<Map<String,String>> mlistItems = new ArrayList<Map<String,String>>();
-
-        public vhAdapter(Context context,List<Map<String,String>> mlistItems){
-            this.mInflater = LayoutInflater.from(context);
-            this.mlistItems = mlistItems;
-        }
-
-        @Override
-        public int getCount() {
-            return mlistItems.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if(convertView == null)
-            {
-                holder = new ViewHolder();
-                convertView = mInflater.inflate(R.layout.table_item,null,true);
-                holder.t0 = (TextView) convertView.findViewById(R.id.t0);
-                holder.t1 = (TextView) convertView.findViewById(R.id.t1);
-                holder.t2 = (TextView) convertView.findViewById(R.id.t2);
-                holder.t3 = (TextView) convertView.findViewById(R.id.t3);
-                holder.t4 = (TextView) convertView.findViewById(R.id.t4);
-                holder.t5 = (TextView) convertView.findViewById(R.id.t5);
-                holder.t6 = (TextView) convertView.findViewById(R.id.t6);
-                holder.t7 = (TextView) convertView.findViewById(R.id.t7);
-                holder.t8 = (TextView) convertView.findViewById(R.id.t8);
-                holder.t9 = (TextView) convertView.findViewById(R.id.t9);
-                holder.t10 = (TextView) convertView.findViewById(R.id.t10);
-                holder.t11 = (TextView) convertView.findViewById(R.id.t11);
-                holder.t12 = (TextView) convertView.findViewById(R.id.t12);
-                holder.t13 = (TextView) convertView.findViewById(R.id.t13);
-                holder.t14 = (TextView) convertView.findViewById(R.id.t14);
-
-                convertView.setTag(holder);
-            }else
-            {
-                holder = (ViewHolder)convertView.getTag();
-            }
-            holder.t0.setText(mlistItems.get(position).get("0"));
-            holder.t1.setText(mlistItems.get(position).get("1"));
-            holder.t2.setText(mlistItems.get(position).get("2"));
-            holder.t3.setText(mlistItems.get(position).get("3"));
-            holder.t4.setText(mlistItems.get(position).get("4"));
-            holder.t5.setText(mlistItems.get(position).get("5"));
-            holder.t6.setText(mlistItems.get(position).get("6"));
-            holder.t7.setText(mlistItems.get(position).get("7"));
-            holder.t8.setText(mlistItems.get(position).get("8"));
-            holder.t9.setText(mlistItems.get(position).get("9"));
-            holder.t10.setText(mlistItems.get(position).get("10"));
-            holder.t11.setText(mlistItems.get(position).get("11"));
-            holder.t12.setText(mlistItems.get(position).get("12"));
-            holder.t13.setText(mlistItems.get(position).get("13"));
-            holder.t14.setText(mlistItems.get(position).get("14"));
-        return convertView;
-        }
-    }
-
-    static class ViewHolder{
-        public TextView t0;
-        public TextView t1;
-        public TextView t2;
-        public TextView t3;
-        public TextView t4;
-        public TextView t5;
-        public TextView t6;
-        public TextView t7;
-        public TextView t8;
-        public TextView t9;
-        public TextView t10;
-        public TextView t11;
-        public TextView t12;
-        public TextView t13;
-        public TextView t14;
     }
 }

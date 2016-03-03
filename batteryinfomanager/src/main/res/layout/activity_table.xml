@@ -27,13 +27,11 @@
             android:id="@+id/hvscroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.example.he.scrollview.NoScrollListview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/mlistView" >
             </com.example.he.scrollview.NoScrollListview>
-
         </com.example.he.scrollview.HVscroll>
     </LinearLayout>
 </LinearLayout>

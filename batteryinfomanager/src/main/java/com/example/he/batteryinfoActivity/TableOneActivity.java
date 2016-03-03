@@ -11,14 +11,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.he.NetAsyncTask.getTableOne;
+import com.example.he.base.ListPopup;
 import com.example.he.scrollview.HVscroll;
 import com.example.he.scrollview.ScrollViewListener;
 
-public class TableOneActivity extends Activity implements ScrollViewListener{
+public class TableOneActivity extends Activity implements ScrollViewListener {
 
     private TextView textViewBack,textViewTop;
     private HVscroll mtitlehvscroll,mhvscroll;
     private ListView mtitlelistview,mlistview;
+    private TextView t0,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class TableOneActivity extends Activity implements ScrollViewListener{
         mhvscroll = (HVscroll) findViewById(R.id.hvscroll);
         mtitlelistview = (ListView) findViewById(R.id.tlistview);
         mlistview = (ListView) findViewById(R.id.mlistView);
+
         final String expname = getIntent().getExtras().getString("expname");
         final String expid = getIntent().getExtras().getString("expid");
 
@@ -50,18 +53,19 @@ public class TableOneActivity extends Activity implements ScrollViewListener{
         });
 
         //联网获取表格数据
+        //new ListPopup(TableOneActivity.class).showPopupWindow();
         new getTableOne(TableOneActivity.this,expid,mtitlelistview,mlistview).execute();
 
         //一级表点击监听
         mlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView bIDtextview = (TextView)mlistview.getChildAt(position).findViewById(R.id.t1);
+                TextView bIDtextview = (TextView) mlistview.getChildAt(position).findViewById(R.id.t1);
                 String batteryId = bIDtextview.getText().toString();
-                Log.d("HeD-batteryID",batteryId);
+                Log.d("HeD-batteryID", batteryId);
                 Intent intent = new Intent();
-                intent.putExtra("expid",expid);
-                intent.putExtra("expname",expname);
+                intent.putExtra("expid", expid);
+                intent.putExtra("expname", expname);
                 intent.putExtra("id", batteryId);
                 intent.setClass(TableOneActivity.this, TableTwoActivity.class);
                 startActivity(intent);

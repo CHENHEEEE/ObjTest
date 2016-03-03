@@ -28,7 +28,7 @@ public class TableTwoActivity extends Activity implements ScrollViewListener{
     private HVscroll mtitlehvscroll,mhvscroll;
     private ListView mtitlelistview,mlistview;
     private List<Map<String,String>> listItems = new ArrayList<Map<String,String>>();
-    private int x,y;
+    private int x,y;//x,y 表示XY轴数据源在list中的下标
     private ImageView imgView;
 
     @Override
