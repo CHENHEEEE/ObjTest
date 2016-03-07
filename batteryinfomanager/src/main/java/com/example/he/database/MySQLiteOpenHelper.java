@@ -6,18 +6,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by HE on 2016/2/25.
+ * 使用单利模式
  */
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper{
+    private static final int VERSION = 1;//版本号
+    private static final String DBNAME = "battery.db";// 定义数据库名
+
+    /* 持有私有静态实例，防止被引用，此处赋值为null，目的是实现延迟加载 */
+    private static MySQLiteOpenHelper helper = null;
+
     /**
      * 构造方法，调用父类SQLiteOpenHelper的构造函数
+     * 私有构造方法，防止被实例化
      * @param context  上下文环境
-     * @param name     数据库名称(以.db结尾)
-     * @param factory  游标工厂(默认为null)
-     * @param version  代表使用数据库模型版本的证书
      */
-    public MySQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    private MySQLiteOpenHelper(Context context) {
+        super(context, DBNAME, null, VERSION);
+    }
+
+    public static MySQLiteOpenHelper getInstance(Context context){
+        if(helper == null){
+            helper = new MySQLiteOpenHelper(context);
+        }
+        return helper;
+    }
+
+    public static MySQLiteOpenHelper getInstance(){
+        return helper;
     }
 
     @Override

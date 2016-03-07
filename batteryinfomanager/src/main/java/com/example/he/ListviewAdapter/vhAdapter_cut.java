@@ -17,13 +17,15 @@ import java.util.Map;
  * Created by HE on 2016/3/1.
  * 重写baseAdapter，提高listview载入速度
  */
-public class vhAdapter extends BaseAdapter {
+public class vhAdapter_cut extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<Map<String,String>> mlistItems = new ArrayList<Map<String,String>>();
+    private int length;
 
-    public vhAdapter(Context context,List<Map<String,String>> mlistItems){
+    public vhAdapter_cut(Context context, List<Map<String, String>> mlistItems, int length){
         this.mInflater = LayoutInflater.from(context);
         this.mlistItems = mlistItems;
+        this.length = length;
     }
 
     @Override
@@ -65,6 +67,15 @@ public class vhAdapter extends BaseAdapter {
             holder.t13 = (TextView) convertView.findViewById(R.id.t13);
             holder.t14 = (TextView) convertView.findViewById(R.id.t14);
 
+            textViews.add(holder.t0);textViews.add(holder.t1);textViews.add(holder.t2);
+            textViews.add(holder.t3);textViews.add(holder.t4);textViews.add(holder.t5);
+            textViews.add(holder.t6);textViews.add(holder.t7);textViews.add(holder.t8);
+            textViews.add(holder.t9);textViews.add(holder.t10);textViews.add(holder.t11);
+            textViews.add(holder.t12);textViews.add(holder.t13);textViews.add(holder.t14);
+
+            for (int i = length;i<textViews.size();i++){
+                textViews.get(i).setVisibility(View.GONE);
+            }
             convertView.setTag(holder);
         }else
         {

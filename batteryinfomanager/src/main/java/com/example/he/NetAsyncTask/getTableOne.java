@@ -1,6 +1,5 @@
 package com.example.he.NetAsyncTask;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,7 +9,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.he.ListviewAdapter.vhAdapter;
+import com.example.he.ListviewAdapter.vhAdapter_cut;
 import com.example.he.ListviewAdapter.vhAdapterwithListener;
 import com.example.he.database.MySQLiteOpenHelper;
 
@@ -46,6 +45,7 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
     private ProgressDialog pd;
     private MySQLiteOpenHelper helper;
     private SQLiteDatabase database;
+    private int length;
 
     public getTableOne(Context context,String Expid,ListView titleListview, ListView listView){
         mcontext = context;
@@ -83,15 +83,16 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
 //                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
 //                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
 //            mListView.setAdapter(msimpleAdapter);
-            vhAdapterwithListener tsimpleAdapter = new vhAdapterwithListener(mcontext,tlistItems);
+            vhAdapterwithListener tsimpleAdapter = new vhAdapterwithListener(mcontext,tlistItems,length);
             mtitlelistview.setAdapter(tsimpleAdapter);
-            vhAdapter msimpleAdapter = new vhAdapter(mcontext,listItems);
+            vhAdapter_cut msimpleAdapter = new vhAdapter_cut(mcontext,listItems,length);
             mListView.setAdapter(msimpleAdapter);
 
             Date dt2= new Date();
             long t2 = dt2.getTime();
             Log.d("time-adapter",String.valueOf(t2-t1));
 
+//            //SQLite查询
 //            Cursor cursor = database.rawQuery("select distinct DoD from one",null);
 //            cursor.moveToFirst();
 //            String [] dod = new String[15];
@@ -135,11 +136,12 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
             // 得到服务器传回的数据
             int num = Integer.parseInt(resultObj.getProperty(0).toString());
             int count = Integer.parseInt(resultObj.getProperty(1).toString());
+            length = count;
             int cursor = 1;
             Map<String,String> tlistItem = new HashMap<String, String>();
 
             //数据库操作，新建库,新建表
-            helper = new MySQLiteOpenHelper(mcontext,"battery_one.db",null,1);
+            helper = MySQLiteOpenHelper.getInstance(mcontext);
             database = helper.getWritableDatabase();//调用方法，创建或打开链接
             //database.execSQL("create table one(mid INTEGER PRIMARY KEY autoincrement);");
             database.execSQL("DROP TABLE IF EXISTS one");
@@ -161,15 +163,11 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
             num = num/count;
             for (int j = 0; j < num; j++) {
                 Map<String, String> listItem = new HashMap<String, String>();
-//                cv.clear();
                 for (int i= 0;i<count;i++){
                     cursor++;
                     listItem.put(String.valueOf(i), resultObj.getProperty(cursor).toString());
-//                    String key = tlistItem.get(String.valueOf(i));
-//                    cv.put(key,resultObj.getProperty(cursor).toString());
                 }
                 listItems.add(listItem);
-//                database.insert("one",null,cv);
             }
 
             //将表格数据存到数据库中，通过事务优化存储速度

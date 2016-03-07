@@ -1,2 +1,4 @@
-include ':app', ':tabletest', ':batteryinfomanager'
+include ':sendobj', ':tabletest', ':BasePopup',':batteryinfomanager'
 include ':studentlist_v2'
+
+

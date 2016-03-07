@@ -9,4 +9,5 @@
     <color name="maintext">#000000</color>
     <color name="subtext">#908E93</color>
     <color name="pressed">#FD505A</color>
+    <color name="click">#F4F4F4</color>
 </resources>
