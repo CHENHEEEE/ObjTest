@@ -5,8 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.he.ListviewAdapter.vhAdapter_cut;
@@ -23,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -46,12 +51,14 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
     private MySQLiteOpenHelper helper;
     private SQLiteDatabase database;
     private int length;
+    private vhAdapter_cut msimpleAdapter;
 
-    public getTableOne(Context context,String Expid,ListView titleListview, ListView listView){
+    public getTableOne(Context context,String Expid,ListView titleListview, ListView listView,vhAdapter_cut msimpleAdapter){
         mcontext = context;
         mExpid = Expid;
         mtitlelistview = titleListview;
         mListView = listView;
+        this.msimpleAdapter = msimpleAdapter;
     }
 
 
@@ -83,9 +90,11 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
 //                    new String[] {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"},
 //                    new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10,R.id.t11,R.id.t12,R.id.t13,R.id.t14});
 //            mListView.setAdapter(msimpleAdapter);
-            vhAdapterwithListener tsimpleAdapter = new vhAdapterwithListener(mcontext,tlistItems,length);
+            Mhandler mhandler = new Mhandler();
+            vhAdapterwithListener tsimpleAdapter = new vhAdapterwithListener(mcontext,tlistItems,length,mhandler);
             mtitlelistview.setAdapter(tsimpleAdapter);
-            vhAdapter_cut msimpleAdapter = new vhAdapter_cut(mcontext,listItems,length);
+
+            msimpleAdapter.setadapter(mcontext,listItems,length,mListView);
             mListView.setAdapter(msimpleAdapter);
 
             Date dt2= new Date();
@@ -198,5 +207,48 @@ public class getTableOne extends AsyncTask<Object, Object, String>{
         Log.d("time-getresultObj",String.valueOf(t2-t1));
 
         return "success";
+    }
+
+    class  Mhandler extends Handler{
+        public Mhandler(){}
+
+        public Mhandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //接收消息
+            if (msg.what == 666 && msg.obj != null)
+            {
+                String colvalue = msg.obj.toString();
+                String colid = String.valueOf(msg.arg1);
+                HashMap<String,String> listItem;
+                List<Map<String,String>> list = new ArrayList<>();
+                List<Integer>newposition = new ArrayList<>();
+                int positoin = 0;
+                for(Iterator i = listItems.iterator();i.hasNext();positoin++){
+                    listItem = (HashMap)i.next();
+                    String value = listItem.get(colid).toString();
+                    if(colvalue.equals(value)||mListView.isItemChecked(positoin)){
+                        if(mListView.isItemChecked(positoin)){
+                            newposition.add(list.size());
+                        }
+                        list.add(listItem);
+                    }
+                }
+                mListView.clearChoices();
+                for(positoin=0;positoin<newposition.size();positoin++){
+                    mListView.setItemChecked(newposition.get(positoin),true);
+                }
+                listItems.clear();
+                for(Iterator i = list.iterator();i.hasNext();){
+                    listItem = (HashMap)i.next();
+                    listItems.add(listItem);
+                }
+                msimpleAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }

@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.he.MyTools.Flags;
 import com.example.he.base.ListPopup;
 import com.example.he.batteryinfoActivity.R;
 import com.example.he.database.MySQLiteOpenHelper;
@@ -26,10 +29,11 @@ import java.util.Map;
  */
 public class vhAdapterwithListener extends BaseAdapter {
     private LayoutInflater mInflater;
-    private List<Map<String,String>> mlistItems = new ArrayList<Map<String,String>>();
+    private List<Map<String,String>> mlistItems = new ArrayList<>();
     private Context mcontext;
     private Activity mactivity;
     private int length;
+    private Handler handler;
 
     public vhAdapterwithListener(Context context, List<Map<String, String>> mlistItems){
         this.mInflater = LayoutInflater.from(context);
@@ -38,12 +42,13 @@ public class vhAdapterwithListener extends BaseAdapter {
         mactivity = (Activity)context;
     }
 
-    public vhAdapterwithListener(Context context, List<Map<String, String>> mlistItems,int length){
+    public vhAdapterwithListener(Context context, List<Map<String, String>> mlistItems,int length,Handler handler){
         this.mInflater = LayoutInflater.from(context);
         this.mlistItems = mlistItems;
         this.mcontext = context;
         mactivity = (Activity)context;
         this.length = length;
+        this.handler = handler;
     }
 
 
@@ -165,19 +170,22 @@ public class vhAdapterwithListener extends BaseAdapter {
         @Override
         public void onClick(View v) {
             Log.d("HeD", "onclick");
+
             TextView tv = (TextView)v;
-            String columnName = tv.getText().toString().substring(0,tv.getText().toString().length()-1);
-            startPOPwindow(columnName);
+            String tag = tv.getTag().toString();
+            Log.d("HeD",tag);
+            String columnName = tv.getText().toString().substring(0, tv.getText().toString().length() - 1);
+            startPOPwindow(columnName,tag);
         }
 
-        private void startPOPwindow(String columnName){
+        private void startPOPwindow(final String columnName, final String colid){
 
-            ListPopup mListPopup;
+            final ListPopup mListPopup;
             ListPopup.Builder builder=new ListPopup.Builder(mactivity);
 
             //SQLite查询
             MySQLiteOpenHelper helper = MySQLiteOpenHelper.getInstance();
-            SQLiteDatabase database = helper.getWritableDatabase();//调用方法，创建或打开链接
+            final SQLiteDatabase database = helper.getWritableDatabase();//调用方法，创建或打开链接
 
             Cursor cursor = database.rawQuery("select distinct " + columnName + " from one order by " + columnName,null);
             cursor.moveToFirst();
@@ -192,79 +200,31 @@ public class vhAdapterwithListener extends BaseAdapter {
                 cursor.moveToNext();
             }
 //            builder.addItem(TAG_CREATE,"Create-01");
-//            builder.addItem(TAG_MODIFY,"Modify-01");
-//            builder.addItem(TAG_CREATE,"Create-02");
-//            builder.addItem(TAG_DELETE,"Delete-01");
-//            builder.addItem(TAG_MODIFY,"Modify-02");
-//            builder.addItem(TAG_CREATE,"Create-03");
-//            builder.addItem(TAG_DELETE,"Delete-02");
-//            builder.addItem(TAG_MODIFY,"Modify-03");
-//            builder.addItem(TAG_DELETE,"Delete-03");
-//            builder.addItem(TAG_MODIFY,"Modify-04");
-//            builder.addItem(TAG_DELETE,"Delete-04");
-//            builder.addItem(TAG_CREATE,"Create-04");
             mListPopup=builder.build();
 
             mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
                 @Override
                 public void onItemClick(int what) {
-//                    switch (what){
-//                        case TAG_CREATE:
-//                            Toast.makeText(mactivity, "click create",Toast.LENGTH_SHORT).show();
-//                            break;
-//                        case TAG_DELETE:
-//                            Toast.makeText(mactivity, "click delete", Toast.LENGTH_SHORT).show();
-//                            //ToastUtils.ToastMessage(mactivity,"click delete");
-//                            break;
-//                        case TAG_MODIFY:
-//                            Toast.makeText(mactivity, "click modify",Toast.LENGTH_SHORT).show();
-//                            // ToastUtils.ToastMessage(mactivity,"click modify");
-//                            break;
-//                        default:
-//                            break;
-//                    }
-                    Toast.makeText(mactivity, s.get(what),Toast.LENGTH_SHORT).show();
+                    //标志为true，表示开始了筛选
+                    Flags flags = Flags.getInstance();
+                    flags.setFlag_true("filter");
+
+                    String value = s.get(what);
+                    String[] args = {value};
+                    database.delete("one", columnName+"!=?", args);
+                    //将筛选点击的值和列ID发给getTableone
+                    Message msg = Message.obtain();
+                    msg.what = 666;
+                    msg.obj = value;
+                    msg.arg1 = Integer.parseInt(colid);
+                    handler.sendMessage(msg);
+
+
+                    mListPopup.dismiss();
                 }
             });
 
             mListPopup.showPopupWindow();
-
-
-//            Log.d("HeD","popwindow");
-//
-//            LayoutInflater inflater = LayoutInflater.from(mcontext);
-//            //引入POPwindow配置文件
-//            View view = inflater.inflate(R.layout.popwindow,null);
-//            //创建POPwindow对象
-//            final PopupWindow popupWindow = new PopupWindow(view,
-//                    ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-//
-//            popupWindow.showAtLocation(this, Gravity.BOTTOM, 0, 0);
-//            popupWindow.setFocusable(true);
-//            popupWindow.setTouchable(true);
-//
-//            popupWindow.setOutsideTouchable(true);
-//            popupWindow.showAsDropDown(parent,0,0);
-
-//            LayoutInflater inflater;
-//            //获取LayoutInflater实例
-//            inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            //这里的main布局是在inflate中加入的哦，以前都是直接this.setContentView()的吧？呵呵
-//            //该方法返回的是一个View的对象，是布局中的根
-//            View layout;
-//            layout = inflater.inflate(R.layout.popwindow, null);
-//            //下面我们要考虑了，我怎样将我的layout加入到PopupWindow中呢？？？很简单
-//            PopupWindow menuWindow = new PopupWindow(layout, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); //后两个参数是width和height
-//            //menuWindow.showAsDropDown(layout); //设置弹出效果
-//            //menuWindow.showAsDropDown(null, 0, layout.getHeight());
-//            //设置如下四条信息，当点击其他区域使其隐藏，要在show之前配置
-//            menuWindow.setFocusable(true);
-//            menuWindow.setOutsideTouchable(true);menuWindow.update();
-//            menuWindow.setBackgroundDrawable(new BitmapDrawable());
-//
-//            menuWindow.showAtLocation(this.findViewById(R.id.schoolmain), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 50); //设置layout在PopupWindow中显示的位置
-//            //如何获取我们main中的控件呢？也很简单
-//            LinearLayout btn = (LinearLayout) layout.findViewById(R.id.button);
         }
     }
 }

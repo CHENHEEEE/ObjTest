@@ -33,18 +33,17 @@ public class vhAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        List<TextView> textViews = new ArrayList<>();
         if(convertView == null)
         {
             holder = new ViewHolder();
