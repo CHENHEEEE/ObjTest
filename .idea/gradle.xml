@@ -12,9 +12,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BasePopup" />
             <option value="$PROJECT_DIR$/batteryinfomAPP" />
-            <option value="$PROJECT_DIR$/sendobj" />
-            <option value="$PROJECT_DIR$/studentlist_v2" />
-            <option value="$PROJECT_DIR$/tabletest" />
           </set>
         </option>
       </GradleProjectSettings>

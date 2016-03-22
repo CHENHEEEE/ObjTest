@@ -5,9 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/BasePopup/BasePopup.iml" filepath="$PROJECT_DIR$/BasePopup/BasePopup.iml" />
       <module fileurl="file://$PROJECT_DIR$/ObjTest.iml" filepath="$PROJECT_DIR$/ObjTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/batteryinfomAPP/batteryinfomAPP.iml" filepath="$PROJECT_DIR$/batteryinfomAPP/batteryinfomAPP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sendobj/sendobj.iml" filepath="$PROJECT_DIR$/sendobj/sendobj.iml" />
-      <module fileurl="file://$PROJECT_DIR$/studentlist_v2/studentlist_v2.iml" filepath="$PROJECT_DIR$/studentlist_v2/studentlist_v2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tabletest/tabletest.iml" filepath="$PROJECT_DIR$/tabletest/tabletest.iml" />
     </modules>
   </component>
 </project>

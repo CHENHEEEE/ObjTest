@@ -1,4 +1,3 @@
-include ':sendobj', ':tabletest', ':BasePopup',':batteryinfomAPP'
-include ':studentlist_v2'
+include ':BasePopup',':batteryinfomAPP'
 
 
