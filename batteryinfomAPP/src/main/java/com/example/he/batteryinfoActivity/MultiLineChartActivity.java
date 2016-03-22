@@ -103,7 +103,7 @@ public class MultiLineChartActivity extends Activity {
      */
     private void setLineChart(LineChart chart) {
 
-        chart.setDescription("EVteam");
+        chart.setDescription("Cycle_Times - Degradion_amended");
         chart.setDrawGridBackground(false);//设置网格背景
         chart.setScaleEnabled(true);//设置缩放
         chart.setDoubleTapToZoomEnabled(true);//设置双击不进行缩放
@@ -153,7 +153,7 @@ public class MultiLineChartActivity extends Activity {
 //        g = g.length()==1 ? "0" + g : g ;
 //        b = b.length()==1 ? "0" + b : b ;
 
-        int color = Color.rgb(r,g,b);
+        int color = Color.argb(150,r,g,b);
         return color;
     }
 }

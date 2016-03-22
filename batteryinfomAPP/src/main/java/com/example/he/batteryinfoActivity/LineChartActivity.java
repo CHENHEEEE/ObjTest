@@ -90,7 +90,7 @@ public class LineChartActivity extends Activity {
      */
     private void setLineChart(LineChart chart) {
 
-        chart.setDescription("EVteam");
+        chart.setDescription("Cycle_Times - Degradion_amended");
         chart.setDrawGridBackground(false);//设置网格背景
         chart.setScaleEnabled(true);//设置缩放
         chart.setDoubleTapToZoomEnabled(true);//设置双击不进行缩放
@@ -102,6 +102,7 @@ public class LineChartActivity extends Activity {
 //        xAxis.setTypeface(mTf);//设置字体
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
+
 
         //获得左侧侧坐标轴
         YAxis leftAxis = chart.getAxisLeft();
