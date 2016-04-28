@@ -9,13 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/batteryinfomanager" />
-          </set>
-        </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/batteryinfomanager" />
+            <option value="$PROJECT_DIR$/BasePopup" />
+            <option value="$PROJECT_DIR$/batteryinfomAPP" />
           </set>
         </option>
       </GradleProjectSettings>
