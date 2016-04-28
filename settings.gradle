@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-include ':batteryinfomanager'
-=======
 include ':BasePopup',':batteryinfomAPP'
 
-
->>>>>>> multichoice
