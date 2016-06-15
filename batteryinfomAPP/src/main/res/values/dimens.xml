@@ -1,8 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="topbarsize">48dp</dimen>
-    <dimen name="bottombarsize">55dp</dimen>
-    <dimen name="topbartextsize">25sp</dimen>
-    <dimen name="activity_vertical_margin">10dp</dimen>
-    <dimen name="activity_horizontal_margin">10dp</dimen>
-</resources>

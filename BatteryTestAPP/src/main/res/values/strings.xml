@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">电池实验</string>
+    <string name="title_activity_table">TableActivity</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">请先下载数据</string>
+</resources>
