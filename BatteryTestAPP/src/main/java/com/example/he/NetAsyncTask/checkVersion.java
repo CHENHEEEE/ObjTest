@@ -48,7 +48,7 @@ public class checkVersion extends AsyncTask<Object, Object, String>{
             if(dataVersion==0 || dataVersion<latestVersion){
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 Drawable drawable = context.getResources().getDrawable(R.drawable.ic_alert);
-                builder.setIcon(Zoom.zoomDrawable(drawable,80,80));
+                builder.setIcon(Zoom.zoomDrawable(drawable,100,100));
                 builder.setTitle("更新");
                 builder.setMessage("有数据更新,是否现在下载?");
 

@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Created by HE on 2016/3/10.
- * 这是一个从数据库查询实验列表的线程
+ * 这是一个从数据库查询实验列表,通道情况的线程
  */
 public class getEquipment extends AsyncTask<Void, Void, String>{
     private Context context;
@@ -42,10 +42,10 @@ public class getEquipment extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        if(result.equals("success")){
-            vhAdapter_Equipment simpleAdapter = new vhAdapter_Equipment(context,listItems);
+        if(result.equals("success")) {
+            vhAdapter_Equipment simpleAdapter = new vhAdapter_Equipment(context, listItems);
             listView.setAdapter(simpleAdapter);
-        }else Toast.makeText(context,"设备信息异常",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

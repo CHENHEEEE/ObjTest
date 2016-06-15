@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 
         initEvents();
 
-        new checkVersion(MainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new checkVersion(MainActivity.this).execute();
     }
 
