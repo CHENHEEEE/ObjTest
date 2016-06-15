@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottombarsize"
+    android:orientation="horizontal"
+    android:background="@drawable/buttombarbg" >
+
+    <LinearLayout
+        android:id="@+id/id_tab_prj"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center" >
+        
+        <ImageButton 
+            android:id="@+id/id_tab_prj_img"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_test_press"
+            android:clickable="false"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/id_tab_eqm"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center" >
+        
+        <ImageButton 
+            android:id="@+id/id_tab_eqm_img"
+            android:layout_width="53dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_eqm"
+            android:clickable="false"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
