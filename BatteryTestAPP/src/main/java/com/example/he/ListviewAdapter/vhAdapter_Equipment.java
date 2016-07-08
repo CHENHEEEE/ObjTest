@@ -68,21 +68,29 @@ public class vhAdapter_Equipment extends BaseAdapter {
             holder.textView_eqm.setText(mlistItems.get(position).get(0));
             holder.textView_eqmid.setText(mlistItems.get(position).get(1));
             holder.imageView_light_0.setBackgroundResource(
-                    (mlistItems.get(position).get(2).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(2).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(2).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_1.setBackgroundResource(
-                    (mlistItems.get(position).get(3).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(3).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(3).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_2.setBackgroundResource(
-                    (mlistItems.get(position).get(4).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(4).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(4).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_3.setBackgroundResource(
-                    (mlistItems.get(position).get(5).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(5).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(5).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_4.setBackgroundResource(
-                    (mlistItems.get(position).get(6).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(6).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(6).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_5.setBackgroundResource(
-                    (mlistItems.get(position).get(7).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(7).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(7).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_6.setBackgroundResource(
-                    (mlistItems.get(position).get(8).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(8).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(8).equals("空闲")?R.drawable.gray:R.drawable.red));
             holder.imageView_light_7.setBackgroundResource(
-                    (mlistItems.get(position).get(9).equals("正常")?R.drawable.green:R.drawable.gray));
+                    (mlistItems.get(position).get(9).equals("正常")?R.drawable.green:
+                            mlistItems.get(position).get(9).equals("空闲")?R.drawable.gray:R.drawable.red));
         }catch (Exception e){
         }
 
