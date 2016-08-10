@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.example.he.ListviewAdapter.vhAdapter_BatteryInfo;
 import com.example.he.MyTools.Flags;
-import com.example.he.NetAsyncTask.getBatteryInfo;
+import com.example.he.AsyncTask.getBatteryInfo;
 import com.example.he.Scrollview.HVscroll;
 import com.example.he.Scrollview.ScrollViewListener;
 import com.example.he.batteryinfoActivity.R;
@@ -103,6 +103,7 @@ public class BatteryInfoActivity extends Activity implements ScrollViewListener 
                 intent.setClass(BatteryInfoActivity.this, BatteryDataActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.animator.to_right, R.animator.to_left);
+                Log.i("HE-D-getData-toGetData", String.valueOf(System.currentTimeMillis()));
             }
         });
     }

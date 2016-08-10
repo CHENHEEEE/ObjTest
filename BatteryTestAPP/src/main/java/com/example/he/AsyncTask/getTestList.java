@@ -1,11 +1,10 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.SimpleAdapter;
 
 import com.example.he.Database.MySQLiteOpenHelper;
@@ -36,15 +35,12 @@ public class getTestList extends AsyncTask<Void, Void, String>{
         this.layout = layout;
         this.listView = listView;
         this.sql = sql;
-        Log.d("HE-D-pull-construct", String.valueOf(System.currentTimeMillis()));
     }
 
     @Override
     protected void onPreExecute() {
-        Log.d("HE-D-pull-onPrestart", String.valueOf(System.currentTimeMillis()));
         helper = MySQLiteOpenHelper.getInstance(context);
         database = helper.getReadableDatabase();
-        Log.d("HE-D-pull-onPreend", String.valueOf(System.currentTimeMillis()));
     }
 
     @Override
@@ -53,14 +49,12 @@ public class getTestList extends AsyncTask<Void, Void, String>{
             SimpleAdapter simpleAdapter = new SimpleAdapter(context, listItems, R.layout.name_item_new,
                     new String[] {"Tname","Sname","id"}, new int[]{R.id.Expname,R.id.Sname,R.id.Expid});
             listView.setAdapter(simpleAdapter);
-            Log.d("HE-D-pull-finish", String.valueOf(System.currentTimeMillis()));
             layout.refreshFinish(PullToRefreshLayout.SUCCEED);
         }else layout.refreshFinish(PullToRefreshLayout.FAIL);
     }
 
     @Override
     protected String doInBackground(Void... params) {
-        Log.d("HE-D-pull-dobackstart", String.valueOf(System.currentTimeMillis()));
         try{
             Cursor cursor = database.rawQuery(sql,null);
             cursor.moveToFirst();

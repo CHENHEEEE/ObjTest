@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.he.Database.MySQLiteOpenHelper;
-import com.example.he.NetAsyncTask.getEquipmentData;
+import com.example.he.AsyncTask.getEquipmentData;
 import com.example.he.Scrollview.HVscroll;
 import com.example.he.Scrollview.ScrollViewListener;
 import com.example.he.batteryinfoActivity.R;

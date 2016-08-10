@@ -4,20 +4,21 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.he.NetAsyncTask.getBatteryData;
+import com.example.he.AsyncTask.getBatteryData;
 import com.example.he.Scrollview.HVscroll;
 import com.example.he.Scrollview.ScrollViewListener;
 import com.example.he.batteryinfoActivity.R;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.lang.ref.WeakReference;
 
 public class BatteryDataActivity extends Activity implements ScrollViewListener{
 
@@ -26,6 +27,8 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
     private ListView mtitlelistview,mlistview;
     private ImageView imgView;
     private String expid,batteryid;
+    static ProgressDialog pd;
+    static MyHandler myHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,37 +38,10 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
 
         inite();
 
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setMessage("载入中…");
-        pd.setIndeterminate(false);// 在最大值最小值中移动
-        pd.setCancelable(false);// 不可以取消
-        pd.show();
-
-        //联网获取表格数据
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                new getBatteryData(BatteryDataActivity.this,expid,batteryid,mtitlelistview,mlistview).execute();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                pd.dismiss();
-            }
-        }).start();
-
+        //载入表格数据
+        Log.i("HE-D-getData-begin", String.valueOf(System.currentTimeMillis()));
+        new getBatteryData(BatteryDataActivity.this,expid,batteryid,mtitlelistview,
+                mlistview,myHandler).execute();
     }
 
     @Override
@@ -80,6 +56,12 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
     }
 
     private void inite(){
+        pd = new ProgressDialog(this);
+        pd.setMessage("载入中…");
+        pd.setIndeterminate(false);// 在最大值最小值中移动
+        pd.setCancelable(false);// 不可以取消
+        pd.show();
+
         textViewBack = (TextView) findViewById(R.id.subtopBack);
         textViewTop = (TextView) findViewById(R.id.subtopTextView);
         imgView = (ImageView) findViewById(R.id.imageView);
@@ -118,6 +100,22 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
                 startActivity(intent);
             }
         });
+
+        //初始化Handler
+        myHandler = new MyHandler(this);
     }
 
+    public static class MyHandler extends Handler {
+        private final WeakReference<BatteryDataActivity> mActivity;
+        public MyHandler(BatteryDataActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            BatteryDataActivity activity = mActivity.get();
+            if (null != activity && msg.what == 0) {
+                pd.dismiss();
+            }
+        }
+    }
 }

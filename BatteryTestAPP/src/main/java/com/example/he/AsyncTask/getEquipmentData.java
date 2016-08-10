@@ -1,4 +1,4 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,9 +12,7 @@ import com.example.he.Database.MySQLiteOpenHelper;
 import com.example.he.ListviewAdapter.vhAdapter_BatteryInfo;
 import com.example.he.ListviewAdapter.vhAdapter_BatteryInfo_title;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

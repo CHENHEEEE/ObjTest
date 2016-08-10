@@ -1,4 +1,4 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.he.Database.MySQLiteOpenHelper;
 import com.example.he.ListviewAdapter.vhAdapter_BatteryData;
 import com.example.he.batteryinfoActivity.R;
+import com.example.he.Activity.BatteryDataActivity.MyHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,17 +31,22 @@ public class getBatteryData extends AsyncTask<Object, Object, String>{
     private Cursor cursor;
     private MySQLiteOpenHelper helper;
     private SQLiteDatabase database;
+    MyHandler myHandler;
 
-    public getBatteryData(Context context, String Expid, String batteryid, ListView titleListview, ListView listView){
+    public getBatteryData(Context context, String Expid, String batteryid, ListView titleListview,
+                          ListView listView,MyHandler myHandler){
         this.context = context;
         this.testname = "TestID_" + Expid;
         this.batteryid = batteryid;
         this.titlelistview = titleListview;
         this.listView = listView;
+        this.myHandler = myHandler;
     }
 
     @Override
     protected void onPreExecute() {
+        Log.i("HE-D-getData-pre", String.valueOf(System.currentTimeMillis()));
+
         //数据库初始化
         helper = MySQLiteOpenHelper.getInstance(context);
         database = helper.getWritableDatabase();
@@ -55,18 +61,23 @@ public class getBatteryData extends AsyncTask<Object, Object, String>{
                     new int[]{R.id.t0,R.id.t1,R.id.t2,R.id.t3,R.id.t4,R.id.t5,R.id.t6,R.id.t7,R.id.t8,R.id.t9,R.id.t10});
             titlelistview.setAdapter(tsimpleAdapter);
 
-            vhAdapter_BatteryData adapter = new vhAdapter_BatteryData(context,cursor);
+            vhAdapter_BatteryData adapter = new vhAdapter_BatteryData(context,cursor,myHandler);
             listView.setAdapter(adapter);
-
-            Log.d("HE-D-start",String.valueOf(System.currentTimeMillis()));
-
         }else {
+            myHandler.sendEmptyMessage(0);
             Toast.makeText(context, "载入失败", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected String doInBackground(Object... params) {
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         Map<String,String> tlistItem = new HashMap<>();
         tlistItem.put("0","ID");
         tlistItem.put("1","Test_NO");
@@ -87,6 +98,7 @@ public class getBatteryData extends AsyncTask<Object, Object, String>{
         } catch (SQLException e) {
             return "fail";
         }
+        Log.i("HE-D-getData-doinfinish", String.valueOf(System.currentTimeMillis()));
         return "success";
     }
 }

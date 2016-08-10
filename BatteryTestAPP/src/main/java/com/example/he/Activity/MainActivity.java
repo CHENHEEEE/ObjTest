@@ -22,10 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.he.MyTools.ToggleButtonGroupTableLayout;
-import com.example.he.NetAsyncTask.checkVersion;
-import com.example.he.NetAsyncTask.getEquipment;
-import com.example.he.NetAsyncTask.getTestList;
-import com.example.he.NetAsyncTask.loadData;
+import com.example.he.AsyncTask.checkVersion;
+import com.example.he.AsyncTask.getEquipment;
+import com.example.he.AsyncTask.getTestList;
+import com.example.he.AsyncTask.loadData;
 import com.example.he.PullToRefresh.PullToRefreshLayout;
 import com.example.he.PullToRefresh.PullableListView;
 import com.example.he.batteryinfoActivity.R;
@@ -186,7 +186,6 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 String sql = getSql();
-                Log.d("HE-D-pull-start", String.valueOf(System.currentTimeMillis()));
                 new getTestList(MainActivity.this,pulllayout,listView,sql).execute();
             }
         });

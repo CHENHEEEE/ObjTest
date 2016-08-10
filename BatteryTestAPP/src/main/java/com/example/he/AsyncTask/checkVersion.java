@@ -1,4 +1,4 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.app.AlertDialog;
 import android.content.Context;

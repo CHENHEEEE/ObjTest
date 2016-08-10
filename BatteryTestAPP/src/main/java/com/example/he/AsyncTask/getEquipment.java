@@ -1,4 +1,4 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,7 +6,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.he.Database.MySQLiteOpenHelper;
 import com.example.he.ListviewAdapter.vhAdapter_Equipment;

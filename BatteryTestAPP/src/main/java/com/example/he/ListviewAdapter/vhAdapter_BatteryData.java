@@ -10,8 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.he.batteryinfoActivity.R;
-
-import java.util.concurrent.Executor;
+import com.example.he.Activity.BatteryDataActivity.MyHandler;
 
 /**
  * Created by HE on 2016/6/2.
@@ -20,11 +19,12 @@ import java.util.concurrent.Executor;
 public class vhAdapter_BatteryData extends BaseAdapter {
     private LayoutInflater mInflater;
     private Cursor cursor;
-    private Executor exec;
+    MyHandler myHandler;
 
-    public vhAdapter_BatteryData(Context context, Cursor cursor){
+    public vhAdapter_BatteryData(Context context, Cursor cursor,MyHandler handler){
         this.mInflater = LayoutInflater.from(context);
         this.cursor = cursor;
+        this.myHandler = handler;
         //exec = new ThreadPoolExecutor(100, 200, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
     }
 
@@ -117,13 +117,9 @@ public class vhAdapter_BatteryData extends BaseAdapter {
             holder.t8.setText("");
             holder.t9.setText("");
             holder.t10.setText("");
+            myHandler.sendEmptyMessage(0);
+            Log.i("HE-D-getData-gVfinish", String.valueOf(System.currentTimeMillis()));
         }
-
-
-        if(position == cursor.getCount()-1) {
-            Log.d("HE-D-finish", String.valueOf(System.currentTimeMillis()));
-        }
-
 
         return convertView;
     }

@@ -1,4 +1,4 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -1,20 +1,15 @@
-package com.example.he.NetAsyncTask;
+package com.example.he.AsyncTask;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.he.Database.MySQLiteOpenHelper;
 import com.example.he.MyTools.Flags;
-import com.example.he.PullToRefresh.PullToRefreshLayout;
-import com.example.he.PullToRefresh.PullableListView;
-import com.example.he.batteryinfoActivity.R;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -23,10 +18,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by HE on 2016/3/10.
