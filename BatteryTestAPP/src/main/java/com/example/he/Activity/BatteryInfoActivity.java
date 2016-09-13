@@ -1,5 +1,10 @@
 package com.example.he.Activity;
-
+/**
+ *电池信息表Activity
+ *
+ *author 陈鹤
+ *created 16/9/13 下午3:19
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -108,6 +113,7 @@ public class BatteryInfoActivity extends Activity implements ScrollViewListener 
         });
     }
 
+    //监听表头和表内容两个ScrollView,同步滚动
     @Override
     public void onScrollChanged(HVscroll hVscroll, int x, int y, int oldx, int oldy) {
         if (hVscroll == mhvscroll) {
@@ -119,6 +125,7 @@ public class BatteryInfoActivity extends Activity implements ScrollViewListener 
         }
     }
 
+    //返回键点击监听
     @Override
     public void onBackPressed() {
         Flags flags = Flags.getInstance();
@@ -153,6 +160,7 @@ public class BatteryInfoActivity extends Activity implements ScrollViewListener 
             }
         }
 
+        //多选菜单设置
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = getMenuInflater();
@@ -188,28 +196,9 @@ public class BatteryInfoActivity extends Activity implements ScrollViewListener 
             return true;
         }
 
+        //多选模式设置
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//            if (mMultiSelectActionBarView == null) {
-//                ViewGroup v = (ViewGroup)LayoutInflater.from(TableOneActivity.this)
-//                        .inflate(R.layout.list_multi_select_actionbar, null);
-//                mode.setCustomView(v);
-//                mSelectedCount = (TextView)v.findViewById(R.id.selected_conv_count);
-////                check = (ImageView)v.findViewById(R.id.check);
-////                check.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View v) {
-////                        //long[] checkedid = mlistview.getCheckedItemIds();
-////                        long[] checkedid = getListCheckedItemIds();
-////                        String s = "checkedID is :";
-////                        for (int i = 0; i < checkedid.length; i++) {
-////                            s = s + "," + checkedid[i];
-////                        }
-////                        Toast.makeText(TableOneActivity.this, s, Toast.LENGTH_SHORT).show();
-////                    }
-////                });
-//            }
-//            top.setVisibility(View.GONE);
             //更新菜单状态
             MenuItem item = menu.findItem(R.id.action_slelect);
             if(mlistview.getCheckedItemCount() == mlistview.getCount()){

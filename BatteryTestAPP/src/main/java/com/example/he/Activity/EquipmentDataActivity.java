@@ -1,5 +1,10 @@
 package com.example.he.Activity;
-
+/**
+ *设备数据表Activity
+ *
+ *author 陈鹤
+ *created 16/9/13 下午3:22
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -77,6 +82,7 @@ public class EquipmentDataActivity extends Activity implements ScrollViewListene
         });
     }
 
+    //监听表头和表内容两个ScrollView,同步滚动
     @Override
     public void onScrollChanged(HVscroll hVscroll, int x, int y, int oldx, int oldy) {
         if (hVscroll == mhvscroll) {

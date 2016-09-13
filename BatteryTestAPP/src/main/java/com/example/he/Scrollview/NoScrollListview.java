@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 /**
+ * 不滚动的ListView
  * Created by HE on 2015/12/30.
  */
 public class NoScrollListview extends ListView {

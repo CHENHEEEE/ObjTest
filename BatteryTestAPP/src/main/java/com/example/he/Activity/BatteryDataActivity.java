@@ -1,5 +1,10 @@
 package com.example.he.Activity;
-
+/**
+ *电池数据表Activity
+ *
+ *author 陈鹤
+ *created 16/9/13 下午3:16
+ */
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +41,7 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_table);
 
+        //控件初始化
         inite();
 
         //载入表格数据
@@ -44,6 +50,7 @@ public class BatteryDataActivity extends Activity implements ScrollViewListener{
                 mlistview,myHandler).execute();
     }
 
+    //监听表头和表内容两个ScrollView,同步滚动
     @Override
     public void onScrollChanged(HVscroll hVscroll, int x, int y, int oldx, int oldy) {
         if (hVscroll == mhvscroll) {

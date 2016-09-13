@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 /**
+ * 图片大小
  * Created by HE on 16/5/30.
  */
 public class Zoom {

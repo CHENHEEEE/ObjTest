@@ -7,13 +7,12 @@
 
     <TextView
         android:id="@+id/subtopBack"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
         android:text="〈"
         android:textSize="@dimen/topbartextsize"
         android:textStyle="normal"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
+        android:gravity="center"
         android:textColor="#FD505A"/>
 
     <TextView

@@ -8,6 +8,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 /**
+ * 重写的layout,能使RadioButton可分行可点击取消
  * Created by HE on 16/5/8.
  */
 public class ToggleButtonGroupTableLayout extends TableLayout  implements OnClickListener{

@@ -1,5 +1,10 @@
 package com.example.he.Activity;
-
+/**
+*单个电池曲线绘制Activity
+*
+*author 陈鹤
+*created 16/9/13 下午3:24
+*/
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

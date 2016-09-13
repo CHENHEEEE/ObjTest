@@ -1,5 +1,10 @@
 package com.example.he.Activity;
-
+/**
+ *主界面Activity
+ *
+ *author 陈鹤
+ *created 16/9/13 下午3:12
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -57,6 +62,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        //控件初始化
         topTextView = (TextView)findViewById(R.id.topTextView);
         imgView_refresh = (ImageView)findViewById(R.id.imageView_refresh);
         imageView_download = (ImageView) findViewById(R.id.imageView_download);
@@ -65,6 +71,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 
         initEvents();
 
+        //检查数据更新
         new checkVersion(MainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         //new checkVersion(MainActivity.this).execute();
     }
@@ -207,8 +214,6 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
         //tab02内容布局
         listView_GZ = (ListView) tab02.findViewById(R.id.listView_GZ);
         listView_DG = (ListView) tab02.findViewById(R.id.listView_DG);
-        textViewGZ_t = (TextView) tab02.findViewById(R.id.textViewGZ_t);
-        textViewDG_t = (TextView) tab02.findViewById(R.id.textViewDG_t);
 
         new getEquipment(MainActivity.this,listView_GZ,"广州").execute();
         new getEquipment(MainActivity.this,listView_DG,"东莞").execute();
